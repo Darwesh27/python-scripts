@@ -18,10 +18,10 @@ def guess_number():
         if guess == secret_number:
             print(f"Congratulations! You guessed the number in {num_guesses} guesses.")
             break
-        elif guess < secret_number:
-            print("Too low. Guess again.")
+        elif abs(guess - secret_number) <= 5:
+            print("Close! Guess again.")
         else:
-            print("Too high. Guess again.")
+            print("Nope. Guess again.")
 
 
 if __name__ == "__main__":
