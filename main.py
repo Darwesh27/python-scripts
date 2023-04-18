@@ -5,6 +5,7 @@
 from password_genrator import pass_gen
 from text_editor import pypad
 from calculater import calculate
+from guess_number import guess_number
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -13,10 +14,6 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('Hi')
-    pass_gen()
-    # pypad()
-    calculate()
-
+    guess_number()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
