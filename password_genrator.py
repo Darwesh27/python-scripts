@@ -16,6 +16,7 @@ def pass_gen():
     # Print the password
     print("Your password is:", password)
 
+    # Return the generated Password
     return password
 
 
