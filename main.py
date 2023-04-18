@@ -3,6 +3,7 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from password_genrator import pass_gen
+from text_editor import pypad
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -13,5 +14,7 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('Hi')
     pass_gen()
+    pypad()
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
