@@ -33,12 +33,22 @@ class FileExplorerGUI:
         self.back_button = tk.Button(self.button_frame, text="< Back", command=self.go_back)
         self.back_button.pack(side="left")
 
-        self.forward_button = tk.Button(self.button_frame, text="Forward >", command=self.go_forward)
-        self.forward_button.pack(side="left")
+
+        # history list
+        self.history = []
+        self.history_pos = -1
 
         self.load_directory()
 
     def load_directory(self):
+
+        # update history list
+        print("The history is ", self.history)
+        path = self.path_var.get()
+        if path != self.history[-1] if self.history else True:
+            self.history = self.history[:self.history_pos + 1] + [path]
+            self.history_pos = len(self.history) - 1
+
         self.canvas.delete("all")
         path = self.path_var.get()
         current_y = 0
@@ -53,13 +63,14 @@ class FileExplorerGUI:
                 self.canvas.create_window((0, current_y), window=label, anchor="nw")
             widget_height = button.winfo_height() if os.path.isdir(file_path) else label.winfo_height()
             current_y += 30
-            
+
 
 
         self.canvas.update_idletasks()
         self.canvas.config(scrollregion=self.canvas.bbox("all"))
 
     def change_directory(self, event):
+        print("changing dir")
         path = self.path_var.get()
         if os.path.isdir(path):
             os.chdir(path)
@@ -71,16 +82,29 @@ class FileExplorerGUI:
     def open_directory(self, path):
         os.chdir(path)
         self.path_var.set(os.getcwd())  # update the path variable
+
+        # Check if path is different from the current history position
+        if path != self.history[self.history_pos]:
+            # Append the new path to the history and update the history position
+            self.history = self.history[:self.history_pos + 1] + [path]
+            self.history_pos = len(self.history) - 1
+
         self.load_directory()
 
     def go_back(self):
-        os.chdir("..")
-        self.path_var.set(os.getcwd())  # update the path variable
-        self.load_directory()
-
+        if self.history_pos > 0:
+            self.history_pos -= 1
+            self.path_var.set(self.history[self.history_pos])
+            self.load_directory()
 
     def go_forward(self):
-        self.load_directory()
+        if self.history_pos < len(self.history) - 1:
+            self.history_pos += 1
+            path = self.history[self.history_pos]
+            self.path_var.set(path)
+            self.load_directory()
+        else:
+            print("Can't go forward")
 
 
 
